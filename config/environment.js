@@ -1,11 +1,13 @@
 'use strict';
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'embertaskapp',
     environment,
     rootURL: '/',
     locationType: 'auto',
+    apiURL: 'http://embertaskapi.test',
+    'ember-cli-mirage': { enabled: false },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
