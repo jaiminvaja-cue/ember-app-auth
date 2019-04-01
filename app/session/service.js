@@ -1,8 +1,10 @@
 import Service from '@ember/service';
 import Ember from 'ember';
+import { storageFor } from 'ember-local-storage';
 
 export default Service.extend({
   token: null,
+  stats: storageFor('stats'),
   authenticate(log, pass) {
     return Ember.$.ajax({
       method: "POST",
@@ -17,7 +19,11 @@ export default Service.extend({
       }
     }).then(info => {
       console.log(info);
-      this.set('token', info.access_token);
+      // this.set('token', info.access_token);
+      this.set('stats.user', {
+        access_token: info.access_token,
+        refresh_token: info.refresh_token
+      });
     });
   }
 });

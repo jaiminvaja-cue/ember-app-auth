@@ -22,6 +22,10 @@ module.exports = function (environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+    'ember-local-storage': {
+      namespace: true, // will use the modulePrefix e.g. 'my-app'
+      keyDelimiter: '/' // will use / as a delimiter - the default is :
     }
   };
 
