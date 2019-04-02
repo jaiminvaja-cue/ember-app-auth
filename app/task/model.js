@@ -5,5 +5,8 @@ export default DS.Model.extend({
   details: DS.attr('string'),
   user: DS.belongsTo('user'),
   completed: DS.attr('boolean'),
-  duedate_at: DS.attr('date')
+  duedate_at: DS.attr('date'),
+  stared: DS.attr('boolean'),
+  labels: DS.attr({}),
+  computedlabel: DS.attr('number')
 });

@@ -1,0 +1,52 @@
+<div class="card task-card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-9" {{action "edit" task on="click"}}>
+        <div class="tags-list">
+          <ul class="p-0">
+            {{#each task.labels as |label|}}
+              <li class="chip">{{label.name}}</li>
+            {{/each}}
+          </ul>
+        </div>
+        <h5 class="card-title" class={{if task.completed 'line-through'}}>{{task.title}}</h5>
+        <p class="card-text" class={{if task.completed 'line-through'}}>{{task.details}}</p>
+      </div>
+      <div class="col-sm-3 text-center">
+        {{!-- <button class="icon flat">
+          <i class="material-icons">
+            info
+          </i>
+        </button> --}}
+        <button class="icon flat" {{action "toggleStar" task on="click"}}>
+          {{#if task.stared}}
+            <i class="material-icons text-warning">
+              star
+            </i>
+          {{else}}
+            <i class="material-icons">
+              star_border
+            </i>
+          {{/if}}
+        </button>
+        <div class="dropdown" style="width: 40px;float: right;">
+          {{!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Dropdown
+          </button> --}}
+          <button class="icon flat" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <i class="material-icons">
+              more_vert
+            </i>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <button class="dropdown-item" type="button" {{action "toggleComplete" task on="click"}}>
+              Mark as Done</button>
+            <button class="dropdown-item" type="button" {{action "toggleStar" task on="click"}}>Add Star</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

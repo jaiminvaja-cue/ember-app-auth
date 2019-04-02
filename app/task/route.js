@@ -4,7 +4,8 @@ import { hash } from 'rsvp';
 export default Route.extend({
   model() {
     return hash({
-      task: this.store.findAll('task')
+      task: this.store.findAll('task'),
+      label: this.store.findAll('label')
     })
   }
 });

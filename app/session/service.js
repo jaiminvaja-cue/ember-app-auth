@@ -18,7 +18,7 @@ export default Service.extend({
         'grant_type': 'password'
       }
     }).then(info => {
-      console.log(info);
+      // console.log(info);
       // this.set('token', info.access_token);
       this.set('stats.user', {
         access_token: info.access_token,

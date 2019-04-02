@@ -1,0 +1,12 @@
+<div class="dropdown float-right">
+  <button class="icon flat" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="material-icons">
+      bookmark
+    </i>
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    {{#each labels as |label|}}
+      <a class="dropdown-item" href="#" {{action "labelClicked" label}}>{{label.name}}</a>
+    {{/each}}
+  </div>
+</div>

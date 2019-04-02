@@ -1,5 +1,5 @@
 @import url(bootstrap.min.css);
-
+@import url('//fonts.googleapis.com/icon?family=Material+Icons');
 body {
   font-size: .875rem;
 }
@@ -103,4 +103,32 @@ body {
 
 .task-card {
   margin: 5px 0;
+}
+
+button {
+  cursor: pointer;
+}
+button.icon{
+  height: 40px;
+  width: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  border: none;
+  line-height: 50%;
+}
+button.flat{
+  background: none;
+}
+.line-through {
+  text-decoration: line-through;
+}
+
+.chip {
+  display: inline-block;
+  padding: 0 12px;
+  height: 25px;
+  font-size: 14px;
+  line-height: 25px;
+  border-radius: 12px;
+  background-color: #f1f1f1;
 }

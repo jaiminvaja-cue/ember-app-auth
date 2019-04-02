@@ -9,7 +9,7 @@ export default Controller.extend({
     authenticate() {
       this.get('session').authenticate(this.get('username'), this.get('password'))
         .then(() => {
-          console.log("In auth");
+          // console.log("In auth");
           this.transitionToRoute('task');
         }, err => {
           console.log(`Error with login ${err.responseText}`)
