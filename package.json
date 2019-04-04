@@ -20,8 +20,10 @@
   "devDependencies": {
     "@ember/jquery": "^0.5.2",
     "@ember/optional-features": "^0.6.3",
+    "babel-eslint": "^10.0.1",
     "broccoli-asset-rev": "^2.7.0",
     "ember-ajax": "^4.0.1",
+    "ember-auto-import": "^1.2.21",
     "ember-bootstrap-datepicker": "^2.0.9",
     "ember-cli": "~3.8.1",
     "ember-cli-app-version": "^3.2.0",
@@ -34,8 +36,10 @@
     "ember-cli-sri": "^2.1.1",
     "ember-cli-template-lint": "^1.0.0-beta.1",
     "ember-cli-uglify": "^2.1.0",
+    "ember-cp-validations": "^4.0.0-beta.7",
     "ember-data": "~3.8.0",
     "ember-export-application-global": "^2.0.0",
+    "ember-fetch": "^6.5.0",
     "ember-load-initializers": "^1.1.0",
     "ember-local-storage": "^1.7.0",
     "ember-maybe-import-regenerator": "^0.1.6",
@@ -51,6 +55,7 @@
     "node": "6.* || 8.* || >= 10.*"
   },
   "dependencies": {
-    "bootstrap": "^4.3.1"
+    "bootstrap": "^4.3.1",
+    "crypto-js": "^3.1.9-1"
   }
 }

@@ -1,9 +1,15 @@
-{{top-nav}}
+{{top-nav logout=(action "logout")}}
 <div class="container-fluid">
   <div class="row">
     <nav class="col-md-2 d-none d-md-block bg-light sidebar">
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">
+              <span data-feather="home"></span>
+              All <span class="sr-only">(current)</span>
+            </a>
+          </li>
           {{#each model.label as |label|}}
             <li class="nav-item">
               <a class="nav-link active" href="#">
@@ -19,6 +25,11 @@
       {{#if this.isListView}}
         <div class="form-group mt-5">
           {{input type="text" class="form-control" value=title placeholder="Enter Task Title"}}
+          {{!-- {{create-task title=title}} --}}
+          <div class="error">
+            {{v-get task 'title' 'message'}}
+          </div>
+          {{!-- {{validated-input type="text" value=title placeholder="Enter Task Title" valuePath="title" model="task"}} --}}
         </div>
         <button type="button" class="btn btn-primary" {{action 'createTask'}} disabled={{isCreateTaskDisabled}}>Create
           Task</button>
@@ -50,13 +61,7 @@
               </div>
             </div>
             {{input type="checkbox" name="completed" checked=activeTask.completed}} Mark as completed
-            <div class="tags-list">
-              <ul class="p-0">
-                {{#each activeTask.labels as |label|}}
-                  <li class="chip">{{label.name}}</li>
-                {{/each}}
-              </ul>
-            </div>
+            {{label-chips labels=activeTask.labels}}
             {{input type="text" class="form-control" value=activeTask.title placeholder="Enter Task Title"}}
             {{textarea class="form-control" value=activeTask.details placeholder="Enter Details"}}
             {{bootstrap-datepicker value=activeTask.duedate_at startDate=today format="dd-mm-yyyy"}}

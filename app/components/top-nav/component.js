@@ -7,7 +7,8 @@ export default Component.extend({
   actions: {
     signOut() {
       this.get('stats').clear();
-      this.transitionToRoute('login');
+
+      this.get('logout')();
     }
   }
 });

@@ -1,0 +1,6 @@
+<form {{action "save"}}>
+  {{input type="text" class="form-control" value=task.title placeholder="Enter Task Title"}}
+  <div class="error">
+    {{v-get task 'title' 'message'}}
+  </div>
+</form>

@@ -1,0 +1,7 @@
+<div class="tags-list">
+  <ul class="p-0">
+    {{#each labels as |label|}}
+      <li class="chip {{to-lower-case label.name}}">{{label.name}}</li>
+    {{/each}}
+  </ul>
+</div>

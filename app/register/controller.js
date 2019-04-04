@@ -9,7 +9,7 @@ export default Controller.extend({
         "email": this.get("email"),
         "password": this.get("password")
       });
-      const newobj = user.save().then(() => {
+      user.save().then(() => {
         this.transitionToRoute('login');
       }).catch(e => {
         this.set('err', 'fail to register')

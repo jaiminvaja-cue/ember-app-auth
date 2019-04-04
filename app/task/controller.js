@@ -16,10 +16,15 @@ export default Controller.extend({
     return this.title === ""
   }),
   actions: {
+    logout() {
+      this.transitionToRoute('login');
+    },
     createTask() {
-      const newTask = this.store.createRecord('task', { "title": this.get("title") });
-      newTask.save();
-      this.set("title", "");
+      if (this.get("title").length) {
+        const newTask = this.store.createRecord('task', { "title": this.get("title") });
+        newTask.save();
+        this.set("title", "");
+      }
     },
     edit(task) {
       this.set('currentComponent', "edit");
@@ -29,36 +34,38 @@ export default Controller.extend({
       // GET TASK
       const activeTask = this.get('activeTask');
       // GET AND UPDATE TASK
-      const task = await this.store.findRecord('task', activeTask.id);
-      task.set('title', activeTask.title);
-      task.save();
+      // const task = await this.store.findRecord('task', activeTask.id);
+      if (activeTask.title.length) {
+        activeTask.set('title', activeTask.title);
+        activeTask.save();
+        // Change View
+        this.set('currentComponent', "list");
+        this.set('activeTask', null);
+      }
 
-      // Change View
-      this.set('currentComponent', "list");
-      this.set('activeTask', null);
     },
     async deleteRecord() {
       // GET TASK
       const activeTask = this.get('activeTask');
-      const task = await this.store.findRecord('task', activeTask.id, { reload: true });
-      if (task) {
-        task.destroyRecord(); // => DELETE to /posts/2
+      // const task = await this.store.findRecord('task', activeTask.id, { reload: true });
+      if (activeTask) {
+        activeTask.destroyRecord(); // => DELETE to /posts/2
         this.set('currentComponent', "list");
         this.set('activeTask', null);
       }
     },
     async toggleStar(task) {
-      const taskObj = await this.store.findRecord('task', task.id);
-      taskObj.set('stared', !task.stared);
-      taskObj.save();
+      // const taskObj = await this.store.findRecord('task', task.id);
+      task.set('stared', !task.stared);
+      task.save();
     },
     async toggleComplete(task) {
-      const taskObj = await this.store.findRecord('task', task.id);
-      taskObj.set('completed', !task.completed);
-      taskObj.save();
+      // const taskObj = await this.store.findRecord('task', task.id);
+      task.set('completed', !task.completed);
+      task.save();
     },
     async toggleLabel(label, task) {
-      const taskObj = await this.store.findRecord('task', task.id);
+      // const taskObj = await this.store.findRecord('task', task.id);
       // const taskLabelIds = task.labels.map(label => label.id);
 
       // if (!taskLabelIds.includes(Number(label.id))) {
@@ -66,9 +73,9 @@ export default Controller.extend({
       // } else {
 
       // }
-      taskObj.set('labels', label);
-      taskObj.set('computedlabel', label.id);
-      taskObj.save();
+      task.set('labels', label);
+      task.set('computedlabel', label.id);
+      task.save();
     }
   }
 });

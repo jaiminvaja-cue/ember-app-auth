@@ -10,8 +10,9 @@ export default DS.RESTAdapter.extend({
   host: config.apiURL,
   session: service('session'),
   stats: storageFor('stats'),
-  headers: computed('session.token', function () {
+  headers: computed('stats.user', function () {
     const user = this.get('stats.user');
+    // console.log('adpter', user);
     return {
       'Authorization': `Bearer ${user.access_token}`,
       'Accept': 'application/json'

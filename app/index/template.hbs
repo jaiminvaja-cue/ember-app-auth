@@ -1,3 +1,17 @@
-<h2>Welcome to Todo App</h2>
-{{#link-to 'login'}}Login{{/link-to}}
-{{#link-to 'register'}}Register{{/link-to}}
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="masthead mb-auto">
+    <div class="inner">
+      <h3 class="masthead-brand">Todo</h3>
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link active" href="#">Home</a>
+        {{#link-to 'login' class="nav-link" }}Login{{/link-to}}
+        {{#link-to 'register' class="nav-link"}}Register{{/link-to}}
+      </nav>
+    </div>
+  </header>
+  <main role="main" class="inner cover">
+    <div style="margin:30%; text-align:center;">
+      <h2>Welcome</h2>
+    </div>
+  </main>
+</div>

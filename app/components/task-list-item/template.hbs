@@ -2,13 +2,7 @@
   <div class="card-body">
     <div class="row">
       <div class="col-sm-9" {{action "edit" task on="click"}}>
-        <div class="tags-list">
-          <ul class="p-0">
-            {{#each task.labels as |label|}}
-              <li class="chip">{{label.name}}</li>
-            {{/each}}
-          </ul>
-        </div>
+        {{label-chips labels=task.labels}}
         <h5 class="card-title" class={{if task.completed 'line-through'}}>{{task.title}}</h5>
         <p class="card-text" class={{if task.completed 'line-through'}}>{{task.details}}</p>
       </div>
