@@ -1,5 +1,8 @@
 {{input placeholder="name" value=name}} <br />
+{{!-- {{v-get user 'name' 'message'}} --}}
 {{input placeholder="email" value=email}} <br />
+{{!-- {{v-get user 'email' 'message'}} --}}
 {{input placeholder="password" value=password type="password"}} <br />
+{{!-- {{v-get user 'password' 'message'}} --}}
 <p>{{err}}</p>
-<button {{action 'registerUser'}}>Register</button>
+<button {{action "registerUser"}}>Register</button>

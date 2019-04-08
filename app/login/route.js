@@ -9,6 +9,7 @@ export default Route.extend({
       this.transitionTo('login');
     } else {
       // console.log(this.get("stats"));
+      // this.get('stats').clear()
       this.transitionTo('task');
     }
   }

@@ -1,10 +1,15 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
+import map from "lodash/map";
+import { inject as service } from '@ember/service';
 
 export default Controller.extend({
+  ajax: service(),
   title: "",
+  createTaskErr: null,
   currentComponent: "list",
   activeTask: null,
+  activeLabelFilter: 0,
   today: (() => new Date())(),
   isListView: computed('currentComponent', function () {
     return this.currentComponent === 'list';
@@ -15,15 +20,28 @@ export default Controller.extend({
   isCreateTaskDisabled: computed('title', function () {
     return this.title === ""
   }),
+  taskList: computed('activeLabelFilter', function () {
+    const tasks = this.model.task;
+
+    const filteredTasks = this.activeLabelFilter === 0 ? tasks : tasks.filter((task) => map(task.labels, 'id').includes(Number(this.activeLabelFilter)));
+    return filteredTasks;
+  }),
   actions: {
     logout() {
       this.transitionToRoute('login');
     },
-    createTask() {
+    async createTask() {
+      // CREATE TASK
       if (this.get("title").length) {
-        const newTask = this.store.createRecord('task', { "title": this.get("title") });
-        newTask.save();
-        this.set("title", "");
+        this.ajax.fire('tasks', "POST", { "title": this.get("title") }).then(res => {
+          this.store.createRecord('task', res.task);
+          this.set('createTaskErr', null);
+          this.set("title", "");
+        }, error => {
+          this.set('createTaskErr', (() => error.responseJSON)());
+        });
+        // RESET FILTER
+        this.set("activeLabelFilter", 0);
       }
     },
     edit(task) {
@@ -37,6 +55,7 @@ export default Controller.extend({
       // const task = await this.store.findRecord('task', activeTask.id);
       if (activeTask.title.length) {
         activeTask.set('title', activeTask.title);
+        activeTask.set('computedlabel', null);
         activeTask.save();
         // Change View
         this.set('currentComponent', "list");
@@ -76,6 +95,9 @@ export default Controller.extend({
       task.set('labels', label);
       task.set('computedlabel', label.id);
       task.save();
+    },
+    filterTask(id) {
+      this.set("activeLabelFilter", id);
     }
   }
 });

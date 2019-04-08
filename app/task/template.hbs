@@ -5,14 +5,14 @@
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" href="#">
+            <a class="nav-link active" href="#" {{action "filterTask" 0}}>
               <span data-feather="home"></span>
               All <span class="sr-only">(current)</span>
             </a>
           </li>
           {{#each model.label as |label|}}
             <li class="nav-item">
-              <a class="nav-link active" href="#">
+              <a class="nav-link active" href="#" {{action "filterTask" label.id}}>
                 <span data-feather="home"></span>
                 {{label.name}} <span class="sr-only">(current)</span>
               </a>
@@ -23,50 +23,33 @@
     </nav>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       {{#if this.isListView}}
-        <div class="form-group mt-5">
-          {{input type="text" class="form-control" value=title placeholder="Enter Task Title"}}
-          {{!-- {{create-task title=title}} --}}
-          <div class="error">
-            {{v-get task 'title' 'message'}}
+        <form {{action "createTask" on="submit"}}>
+          <div class="form-group mt-5">
+            {{input type="text" class="form-control" value=title placeholder="Enter Task Title"}}
+            {{!-- {{create-task title=title}} --}}
+            <div class="error">{{createTaskErr.title}}</div>
+            {{!-- {{validated-input type="text" value=title placeholder="Enter Task Title" valuePath="title" model="task"}} --}}
+            <button type="submit" class="btn btn-primary mt-2" {{action "createTask"}}
+              disabled={{isCreateTaskDisabled}}>Create
+              Task</button>
           </div>
-          {{!-- {{validated-input type="text" value=title placeholder="Enter Task Title" valuePath="title" model="task"}} --}}
-        </div>
-        <button type="button" class="btn btn-primary" {{action 'createTask'}} disabled={{isCreateTaskDisabled}}>Create
-          Task</button>
+        </form>
         <div class="table-responsive">
-          {{#each model.task as |task|}}
-            {{task-list-item task=task edit=(action "edit") toggleStar=(action "toggleStar") toggleComplete=(action "toggleComplete")}}
+          {{#each taskList as |task|}}
+            {{task-list-item
+              task=task
+              edit=(action "edit")
+              toggleStar=(action "toggleStar")
+              toggleComplete=(action "toggleComplete")}}
           {{/each}}
         </div>
       {{else if this.isEditView}}
-        <div class="card task-card mt-5">
-          <div class="card-body">
-            <div class="card-title">
-              <div class="row">
-                <div class="col">
-                  <button {{action 'update'}} class="icon flat">
-                    <i class="material-icons">
-                      keyboard_backspace
-                    </i>
-                  </button>
-                </div>
-                <div class="col text-right">
-                  <button {{action 'deleteRecord'}} class="icon btn-danger float-right">
-                    <i class="material-icons">
-                      delete
-                    </i>
-                  </button>
-                  {{label-selector labels=model.label task=activeTask toggleLabel=(action "toggleLabel")}}
-                </div>
-              </div>
-            </div>
-            {{input type="checkbox" name="completed" checked=activeTask.completed}} Mark as completed
-            {{label-chips labels=activeTask.labels}}
-            {{input type="text" class="form-control" value=activeTask.title placeholder="Enter Task Title"}}
-            {{textarea class="form-control" value=activeTask.details placeholder="Enter Details"}}
-            {{bootstrap-datepicker value=activeTask.duedate_at startDate=today format="dd-mm-yyyy"}}
-          </div>
-        </div>
+        {{edit-task
+          task=activeTask
+          labels=model.label
+          toggleLabel=(action "toggleLabel")
+          deleteRecord=(action "deleteRecord")
+          update=(action "update")}}
       {{/if}}
     </main>
   </div>

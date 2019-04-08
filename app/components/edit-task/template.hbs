@@ -1,0 +1,28 @@
+<div class="card task-card mt-5">
+  <div class="card-body">
+    <div class="card-title">
+      <div class="row">
+        <div class="col">
+          <button {{action "update" task}} class="icon flat">
+            <i class="material-icons">
+              keyboard_backspace
+            </i>
+          </button>
+        </div>
+        <div class="col text-right">
+          <button {{action "deleteRecord" task}} class="icon flat float-right">
+            <i class="material-icons  text-danger">
+              delete
+            </i>
+          </button>
+          {{label-selector labels=labels task=task toggleLabel=(action "toggleLabel")}}
+        </div>
+      </div>
+    </div>
+    {{input type="checkbox" name="completed" checked=task.completed}} Mark as completed
+    {{label-chips labels=task.labels}}
+    {{input type="text" class="form-control" value=task.title placeholder="Enter Task Title"}}
+    {{textarea class="form-control" value=task.details placeholder="Enter Details"}}
+    {{bootstrap-datepicker value=task.duedate_at startDate=today format="dd-mm-yyyy"}}
+  </div>
+</div>

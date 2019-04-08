@@ -1,14 +1,17 @@
+
 import Service from '@ember/service';
-import Ember from 'ember';
+import $ from 'jquery';
+import { bind } from '@ember/runloop';
 import { storageFor } from 'ember-local-storage';
 import CryptoJS from "crypto-js";
+
 export default Service.extend({
   token: null,
   stats: storageFor('stats'),
   authenticate(log, pass) {
     const encryptedWord = CryptoJS.enc.Utf8.parse(pass);
     const encrypted = CryptoJS.enc.Base64.stringify(encryptedWord);
-    return Ember.$.ajax({
+    return $.ajax({
       method: "POST",
       url: "http://embertaskapi.test/oauth/token",
       data: {
@@ -19,13 +22,11 @@ export default Service.extend({
         'scope': "*",
         'grant_type': 'password'
       }
-    }).then(info => {
-      // console.log(info);
-      // this.set('token', info.access_token);
+    }).then(bind(this, (data) => {
       this.set('stats.user', {
-        access_token: info.access_token,
-        refresh_token: info.refresh_token
+        access_token: data.access_token,
+        refresh_token: data.refresh_token
       });
-    });
+    }));
   }
 });

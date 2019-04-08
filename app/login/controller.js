@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import { inject } from '@ember/service';
-
+import has from "lodash/has";
 export default Controller.extend({
   username: null,
   password: null,
@@ -13,7 +13,9 @@ export default Controller.extend({
           // console.log("In auth");
           this.transitionToRoute('task');
         }, err => {
-          this.set("err", err.responseJSON.hint !== undefined ? "Invalid Credentails" : err.responseJSON.hint);
+          // console.log(err.responseJSON)
+          this.set('err', err.responseJSON.message)
+          this.set("err", has(err.responseJSON, 'hint') ? err.responseJSON.hint : err.responseJSON.message);
         });
     }
   }

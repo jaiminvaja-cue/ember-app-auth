@@ -243,3 +243,7 @@ body {
 .cover-heading {
   margin: 0 auto;
 }
+
+.duedate {
+  margin: 5px 0;
+}

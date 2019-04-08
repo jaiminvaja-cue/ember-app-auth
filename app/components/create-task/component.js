@@ -9,7 +9,7 @@ export default Component.extend({
       task.validate()
         .then(({ validations }) => {
           if (validations.get('isValid')) {
-            console.log("Validated!!")
+            // console.log("Validated!!")
           }
         });
     }

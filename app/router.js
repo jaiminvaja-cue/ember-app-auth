@@ -11,6 +11,7 @@ Router.map(function () {
   this.route('user');
   this.route('task');
   this.route('register');
+  this.route('404', { path: '/*path' });
 });
 
 export default Router;

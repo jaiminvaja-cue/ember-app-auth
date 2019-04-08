@@ -3,6 +3,9 @@
     <div class="row">
       <div class="col-sm-9" {{action "edit" task on="click"}}>
         {{label-chips labels=task.labels}}
+        <div class="duedate">
+          {{!-- <span class="text-info">Due on:</span> {{date-formate task.duedate_at}} --}}
+        </div>
         <h5 class="card-title" class={{if task.completed 'line-through'}}>{{task.title}}</h5>
         <p class="card-text" class={{if task.completed 'line-through'}}>{{task.details}}</p>
       </div>
